@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package service;
+
+import "validate/validate.proto";
+
+message Person {
+  uint64 ID    = 1 [(validate.rules).uint64.gt    = 999];
+
+  string Email = 2 [(validate.rules).string.email = true];
+
+  string Name  = 3 [(validate.rules).string = {
+                      pattern:   "^[^[0-9]A-Za-z]+( [^[0-9]A-Za-z]+)*$",
+                      max_bytes: 256,
+                   }];
+
+  Location Home = 4 [(validate.rules).message.required = true];
+
+  message Location {
+    double Lat = 1 [(validate.rules).double = { gte: -90,  lte: 90 }];
+    double Lng = 2 [(validate.rules).double = { gte: -180, lte: 180 }];
+  }
+}

@@ -41,3 +41,6 @@ __pycache__/
 .settings
 .idea/
 .ijwb/
+
+/csharp/**/bin
+/csharp/**/obj
